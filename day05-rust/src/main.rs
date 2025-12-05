@@ -52,8 +52,6 @@ fn part2() {
 
     intervals.sort();
 
-    let mut joined_intervals = vec![];
-
     let (mut last_start, mut last_end) = intervals[0];
     for (start, end) in &intervals {
         if *start == last_start {
@@ -63,15 +61,11 @@ fn part2() {
                 last_end = *end;
             }
         } else {
-            joined_intervals.push((last_start, last_end));
+            count += last_end - last_start + 1;
             (last_start, last_end) = (*start, *end);
         }
     }
-    joined_intervals.push((last_start, last_end));
-
-    for (start, end) in joined_intervals {
-        count += end - start + 1
-    }
+    count += last_end - last_start + 1;
 
     println!("{}", count);
 }
